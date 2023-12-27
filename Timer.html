@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+</head>
+
+<body>
+    <h1>Timer</h1>
+    <label>Hours:
+        <input type="number" id="hours" value="0" min="0">
+    </label>
+    <label>
+        Minutes:
+        <input type="number" id="minute" value="0" min="0">
+    </label>
+    <label>
+        Seconds:
+        <input type="number" id="second" value="0" min="0">
+    </label>
+    <br>
+    <button onclick="startTimer()">Start</button>
+    <button onclick="pauseTimer()">Pause</button>
+    <button onclick="resetTimer()">Reset</button>
+
+    <script>
+        let timer; // set Interval
+        let Totalseconds;
+
+        function startTimer() {
+            Totalseconds = parseInt(document.getElementById("hours").value
+            ) * 3600 +
+                parseInt(document.getElementById("minute").value)
+                * 60 +
+                parseInt(document.getElementById('second').value);
+
+
+            if (isNaN(Totalseconds) || Totalseconds <= 0) {
+                alert("Please enter a valid time.");
+                return;
+            }
+
+            timer = setInterval(updateTimer, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timer); // Stoptime for resume
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            document.getElementById('hours').value = 0;
+            document.getElementById("minute").value = 0;
+            document.getElementById("second").value = 0;
+        }
+
+        function updateTimer() {
+            if (Totalseconds > 0) {
+                Totalseconds--;
+                updateDisplay();
+            } else {
+                clearInterval(timer);
+                alert("Timer completed")
+            }
+
+        }
+        function updateDisplay() {
+            const hours = Math.floor(Totalseconds / 3600);
+            const minute = Math.floor(Totalseconds % 3600) / 60;
+            const second = Totalseconds % 60;
+
+
+            document.getElementById("hours").value = hours;
+            document.getElementById("minute").value = parseInt(minute);
+            document.getElementById("second").value = second;
+
+        }
+    </script>
+
+
+</body>
+
+</html>
